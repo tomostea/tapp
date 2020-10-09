@@ -22,13 +22,9 @@
 
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').then(function (registration) {
-                // 登録成功
-                console.log('ServiceWorker registration successful with scope: ', registration.scope);
-            }).catch(function (err) {
-                // 登録失敗
-                console.log('ServiceWorker registration failed: ', err);
-            });
+            navigator.serviceWorker.register('sw.js')
+            .then((registration) => console.log(registration.scope) )
+            .catch((err) => console.error(err) );
         }
         document.querySelector('#gUM_do').onclick = () => {
             navigator.mediaDevices.getUserMedia(
