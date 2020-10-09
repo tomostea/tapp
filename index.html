@@ -6,6 +6,11 @@
     <title>TApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png">
+    <style>
+        input {
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,8 +55,8 @@
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('sw.js')
-            .then((registration) => console.log(registration.scope) )
-            .catch((err) => console.error(err) );
+                .then((registration) => console.log(registration.scope))
+                .catch((err) => console.error(err));
         }
         document.querySelector('#gUM_do').onclick = () => {
             navigator.mediaDevices.getUserMedia(
@@ -174,7 +179,7 @@
             alert(`DONE! : ${fileName}`)
         };
 
-                // [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
+        // [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
         // [ブラウザで覚えるES Modules入門 - JavaScriptでモジュールを使う時代 - ICS MEDIA](https://ics.media/entry/16511/)
         const sha_app = new Vue({
             el: '#sha_app',
