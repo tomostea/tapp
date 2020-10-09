@@ -9,6 +9,10 @@
 </head>
 
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://beautifier.io/js/lib/beautify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@chenfengyuan/vue-countdown@1.1.5/dist/vue-countdown.min.js"></script>
+
     <input type="file" id="aes_source" />
     <input type="password" id="aes_key" />
     <button onclick="doAes('#aes_key','#aes_source','#aes_result')">encrypt</button>
@@ -19,6 +23,29 @@
     <button id="gUM_rec">REC</button>
     <button id="gUM_stop">Stop</button>
     <div id="gUM_res"></div>
+
+    <div id="sha_app">
+    </div>
+    <div id="url_app">
+    </div>
+    <div id="base_app">
+    </div>
+    <div id="pass_app">
+    </div>
+    <div id="timer_app">
+    </div>
+    <div id="fin_app">
+    </div>
+    <div id="od_app">
+    </div>
+    <div id="calc_app">
+    </div>
+    <div id="rss_app">
+    </div>
+    <div id="jrnl_app">
+    </div>
+    <div id="btfy_app">
+    </div>
 
     <script>
         if ('serviceWorker' in navigator) {
@@ -146,6 +173,307 @@
             dl_.href = URL.createObjectURL(blob)
             alert(`DONE! : ${fileName}`)
         };
+
+                // [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
+        // [ブラウザで覚えるES Modules入門 - JavaScriptでモジュールを使う時代 - ICS MEDIA](https://ics.media/entry/16511/)
+        const sha_app = new Vue({
+            el: '#sha_app',
+            template: `
+            <div>
+            sha
+            <input v-model="raw">
+            <span>{{hash}}</span>
+            </div>
+            `,
+            data: {
+                raw: '',
+                hash: ''
+            },
+            watch: {
+                // [Vue.js プロパティの変更をデータに反映する - 前人未踏の領域へ WEB・インフラ・プログラミング全般編](https://taker.hatenablog.com/entry/2020/04/07/083542)
+                // [SHA256のハッシュをJavaScriptのWeb標準のライブラリだけで計算する - nwtgck / Ryo Ota](https://scrapbox.io/nwtgck/SHA256のハッシュをJavaScriptのWeb標準のライブラリだけで計算する)
+                raw: async function () {
+                    const buff = new Uint8Array([].map.call(this.raw, (c) => c.charCodeAt(0))).buffer;
+                    const digest = await crypto.subtle.digest('SHA-256', buff);
+                    this.hash = [].map.call(new Uint8Array(digest), x => ('00' + x.toString(16)).slice(-2)).join('');
+                }
+            }
+        })
+        const url_app = new Vue({
+            el: '#url_app',
+            template: `
+            <div>
+            url
+            <input v-model="before">
+            <button v-on:click="encDec">Do</button>
+            <input type="checkbox" v-model="mode" value="true">encode
+            <span>{{after}}</span>
+            </div>
+            `,
+            data: {
+                before: '',
+                after: '',
+                mode: []
+            },
+            methods: {
+                encDec: function () {
+                    this.after = this.mode.length == 0 ? decodeURI(this.before) : encodeURI(this.before)
+                }
+            }
+        })
+        const base_app = new Vue({
+            el: '#base_app',
+            template: `
+            <div>
+            base
+            <input v-model="before">
+            <button v-on:click="encDec">Do</button>
+            <input type="checkbox" v-model="mode" value="true">encode
+            <span>{{after}}</span>
+            </div>
+            `,
+            data: {
+                before: '',
+                after: '',
+                mode: []
+            },
+            methods: {
+                // [JavaScriptでBase64エンコード・デコード（UTF-8も） - Qiita](https://qiita.com/i15fujimura1s/items/6fa5d16b1e53f04f3b06)
+                encDec: function () {
+                    this.after = this.mode.length == 0 ? decodeURIComponent(atob(this.before)) : btoa(encodeURIComponent(this.before))
+                }
+            }
+        })
+        const pass_app = new Vue({
+            el: '#pass_app',
+            // // [Vue.jsでinput type="number"としてもvalueは常に文字列を返すので注意！number装飾子を追加しよう - Qiita](https://qiita.com/kopkop/items/f0ad39ca96731b938796)
+            template: `
+            <div>
+            pass
+            <input type="number" v-model.number="length">
+            <input type="checkbox" v-model="mode" value="lower">Lowercase
+            <input type="checkbox" v-model="mode" value="upper">Uppercase
+            <input type="checkbox" v-model="mode" value="number">Number
+            <input type="checkbox" v-model="mode" value="symbol">Symbol
+            <button v-on:click="generatePassword">Do</button>
+            <span>{{password}}</span>
+            </div>
+            `,
+            data: {
+                password: '',
+                length: 12,
+                mode: ["lower", "upper", "number"]
+            },
+            methods: {
+                // [](https://luck2515.com/20200312/createPassword)
+                generatePassword: function () {
+                    const lowercase = "abcdefghijklmnopqrstuvwxyz"
+                    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                    const numbers = "0123456789"
+                    const symboles = "`˜!@#$%^&*()_+-={}[]|:;\"'<>,.?/"
+                    const length = this.length;
+                    const useLowercase = this.mode.includes("lower");
+                    const useUppercase = this.mode.includes("upper");
+                    const useNumber = this.mode.includes("number");
+                    const useSymbol = this.mode.includes("symbol");
+                    let password = ""
+                    strList = `${useLowercase ? lowercase : ""}${useUppercase ? uppercase : ""}${useNumber ? numbers : ""}${useSymbol ? symboles : ""}`
+                    secureMathRandom = () => window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
+                    for (let j = 0; j < length; j++) {
+                        password += strList[Math.floor(secureMathRandom() * strList.length)]
+                    }
+                    this.password = password
+                }
+            }
+        })
+        // <button @click="addNum">{{num}}</button>
+        Vue.component(VueCountdown.name, VueCountdown);
+        const timer_app = new Vue({
+            el: '#timer_app',
+            data: {
+                nums: [],
+                seconds: []
+            },
+            methods: {
+                updateSeconds: function () {
+                    this.seconds = this.nums.split(",")
+                }
+            },
+            template: `
+            <div>
+            timer
+            <input v-model="nums">
+            <button v-on:click="updateSeconds">Do</button>
+            <div v-for="c in seconds" ref="time">
+                <countdown :time="c * 1000">
+                    <!-- 親コンポーネント (HTML (Vueインスタンス)) がデータを受け取る時はv-slot 逆はv-bind -->
+                    <template v-slot="props">{{ props.days }} d {{ props.hours }} h
+                        {{ props.minutes }} m {{ props.seconds }} s</template>
+                </countdown>
+            </div>
+            </div>
+            `
+        })
+        const fin_app = new Vue({
+            el: '#fin_app',
+            template: `
+            <div>
+            fin
+            <input v-model="raw">
+            <span>{{result}}</span>
+            </div>
+            `,
+            data: {
+                raw: '',
+                result: 0
+            },
+            watch: {
+                raw: function () {
+                    const json = JSON.parse(this.raw);
+                    const values = Object.values(json);
+                    const result = values.reduce((sum, n) => sum += Number(n));
+                    this.result = result
+                }
+            }
+        })
+        const od_app = new Vue({
+            el: '#od_app',
+            template: `
+            <div>
+            od
+            <input v-model="raw">
+            <span>{{result}}</span>
+            </div>
+            `,
+            data: {
+                raw: '',
+                result: ''
+            },
+            watch: {
+                raw: function () {
+                    const amount = 10000;
+                    const target = 0.1;
+                    const dilution = 50;
+                    const odraw = this.raw.split(",");
+                    const ods = odraw.map(x => parseFloat(x));
+                    const sum = ods.reduce((a, x) => a + x);
+                    const avg = sum / ods.length;
+                    const result = amount * (target / (dilution * avg));
+                    const result2 = (400 * (0.300 / avg)) / 2;
+                    this.result = `avg: ${avg}\nresult: ${result}\nresult2: ${result2}`;
+                }
+            }
+        })
+        const calc_app = new Vue({
+            el: '#calc_app',
+            template: `
+            <div>
+            calc
+            <input v-model="raw">
+            <span>{{result}}</span>
+            </div>
+            `,
+            data: {
+                raw: '',
+                result: 0
+            },
+            watch: {
+                raw: function () {
+                    this.result = eval(this.raw)
+                }
+            }
+        })
+        const rss_app = new Vue({
+            el: '#rss_app',
+            template: `
+            <div>
+            rss
+            <input v-model="raw">
+            <button v-on:click="rss">Do</button>
+            <span>{{result}}</span>
+            </div>
+            `,
+            data: {
+                raw: '',
+                result: 0
+            },
+            methods: {
+                // [rss-detect-bookmarklet/rss.js at master · aziraphale/rss-detect-bookmarklet](https://github.com/aziraphale/rss-detect-bookmarklet/blob/master/rss.js)
+                rss: function () {
+                    fetch("https://cors-anywhere.herokuapp.com/" + this.raw)
+                        .then((res) => res.text())
+                        .then((htmlstr) => {
+                            let query, elements, links = [];
+                            try {
+                                query = "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
+                                const html = new DOMParser().parseFromString(htmlstr, "text/html")
+                                console.log(html)
+                                elements = html.querySelectorAll(query);
+                                if (elements && elements.length > 0) {
+                                    for (let element of elements) {
+                                        links.push(element.href);
+                                    }
+                                }
+                            } catch (e) { }
+                            if (links.length > 0) {
+                                this.result = links;
+                            } else {
+                                this.result = "Not Find";
+                            }
+                        })
+                }
+            }
+        })
+        const jrnl_app = new Vue({
+            el: '#jrnl_app',
+            template: `
+            <div>
+            jrnl
+            <input v-model="raw">
+            <button v-on:click="show">Do</button>
+            <span>{{result}}</span>
+            </div>
+            `,
+            data: {
+                raw: '',
+                result: 0
+            },
+            methods: {
+                show: function () {
+                    const today = new Date();
+                    const date = `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${("0" + today.getDate()).slice(-2)}`;
+                    const result = {
+                        date: date,
+                        event: "",
+                        mi: 0,
+                        trend: "http://www.wikidata.org/entity/",
+                        memo: "",
+                    };
+                    this.result = JSON.stringify(result, null, 1)
+                    const art = this.raw
+                    if (art) { window.open(`https://query.wikidata.org/#PREFIX%20rdfs:%20<http://www.w3.org/2000/01/rdf-schema#>select%20distinct%20*%20where%20{%20?s%20rdfs:label%20?o%20filter%20regex%20(?o,%20"${art}").}limit%201`); }
+                }
+            }
+        })
+        const btfy_app = new Vue({
+            el: '#btfy_app',
+            template: `
+            <div>
+            btfy
+            <input v-model="raw">
+            <textarea v-model="result"></textarea>
+            </div>
+            `,
+            data: {
+                raw: '',
+                result: 0
+            },
+            watch: {
+                raw: function () {
+                    this.result = js_beautify(this.raw)
+                }
+            }
+        })
     </script>
 </body>
 
