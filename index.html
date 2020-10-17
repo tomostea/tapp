@@ -339,11 +339,11 @@
                     const today = new Date();
                     const date = `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${("0" + today.getDate()).slice(-2)}`;
                     const result = {
-                        date: date,
-                        event: "",
-                        mi: 0,
-                        trend: "http://www.wikidata.org/entity/",
-                        memo: "",
+                        P577: date,
+                        P793: "",
+                        P4271: 0,
+                        P135: "http://www.wikidata.org/entity/",
+                        P1476: "",
                     };
                     this.jrnl_result = JSON.stringify(result, null, 1)
                     const art = this.jrnl_raw
