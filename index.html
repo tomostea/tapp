@@ -22,7 +22,7 @@
     <input type="password" id="aes_key" />
     <button onclick="doAes('#aes_key','#aes_source','#aes_result')">encrypt</button>
     <button onclick="doAes('#aes_key','#aes_source','#aes_result',false)">decrypt</button>
-    <a href="" id="aes_result">download</a>
+    <a id="aes_result">DL</a>
 
     <button id="gUM_do">Do</button>
     <button id="gUM_rec">REC</button>
@@ -138,7 +138,7 @@
             const hashed = await hashKey(keyraw);
             const sliced = hashed.slice(0, 43);
             const aeskey = await keyLoad(sliced)
-            let dl_ = document.querySelector(dlid)
+            const dl_ = document.querySelector(dlid)
             let processed;
             if (enc_mode) {
                 processed = await doAESCTRenc(aeskey, fileData)
@@ -149,7 +149,6 @@
             }
             const blob = new Blob([processed])
             dl_.href = URL.createObjectURL(blob)
-            alert(`DONE! : ${fileName}`)
         };
 
         // [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
