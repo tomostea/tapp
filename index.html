@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>TApp</title>
+    <title>TApp 1.0</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png">
     <style>
@@ -313,13 +313,8 @@
                             try {
                                 query = "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
                                 const html = new DOMParser().parseFromString(htmlstr, "text/html")
-                                console.log(html)
                                 elements = html.querySelectorAll(query);
-                                if (elements && elements.length > 0) {
-                                    for (let element of elements) {
-                                        links.push(element.href);
-                                    }
-                                }
+                                links = elements.map(x => x.href)
                             } catch (e) { }
                             if (links.length > 0) {
                                 this.rss_result = links;
