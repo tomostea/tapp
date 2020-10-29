@@ -318,7 +318,7 @@
                                 links = Array.from(elements).map(x => x.href)
                             } catch (e) { }
                         this.rss_result = links.length > 0 ? links : "None"
-                        })
+                        }).catch(e => console.error(e))
                 },
                 jrnl_method: function () {
                     const today = new Date();
