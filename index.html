@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>TApp 1.0.2</title>
+    <title>TApp 1.0.3</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png">
     <style>
@@ -285,9 +285,9 @@
                     const useUppercase = this.pass_mode.includes("upper");
                     const useNumber = this.pass_mode.includes("number");
                     const useSymbol = this.pass_mode.includes("symbol");
-                    let password = ""
                     const strList = `${useLowercase ? lowercase : ""}${useUppercase ? uppercase : ""}${useNumber ? numbers : ""}${useSymbol ? symbols : ""}`
                     const secureMathRandom = () => window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
+                    let password = ""
                     for (let j = 0; j < length; j++) {
                         password += strList[Math.floor(secureMathRandom() * strList.length)]
                     }
@@ -322,7 +322,7 @@
                         P135: "http://www.wikidata.org/entity/",
                         P1476: "",
                     };
-                    this.jrnl_result = JSON.stringify(result, null, 1)
+                    this.jrnl_result = JSON.stringify(result, null, 0)
                     const art = this.jrnl_raw
                     if (art) { window.open(`https://query.wikidata.org/#PREFIX%20rdfs:%20<http://www.w3.org/2000/01/rdf-schema#>select%20distinct%20*%20where%20{%20?s%20rdfs:label%20?o%20filter%20regex%20(?o,%20"${art}").}limit%201`); }
                 }
