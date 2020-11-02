@@ -302,13 +302,12 @@
                     fetch("https://cors-anywhere.herokuapp.com/" + this.rss_raw)
                         .then((res) => res.text())
                         .then((htmlstr) => {
-                            let query, elements, links = [];
                             try {
-                                query = "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
+                                const query = "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
                                 const html = new DOMParser().parseFromString(htmlstr, "text/html")
-                                elements = html.querySelectorAll(query);
+                                const elements = html.querySelectorAll(query);
                                 // [querySelectorAllしてmapしたいとき[...すると短い - hitode909の日記](https://blog.sushi.money/entry/2017/04/19/114028)
-                                links = Array.from(elements).map(x => x.href)
+                                const links = Array.from(elements).map(x => x.href)
                             } catch (e) { }
                             this.rss_result = links.length > 0 ? links : "None"
                         }).catch(e => console.error(e))
