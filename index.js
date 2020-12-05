@@ -20,6 +20,14 @@ document.querySelector('#gUM_do').onclick = () => {
                 };
             });
 };
+// [Browserpad - A notepad in the browser](http://browserpad.org/)
+// [【JavaScript入門】Blobの使い方とダウンロード・保存方法まとめ！ | 侍エンジニア塾ブログ（Samurai Blog） - プログラミング入門者向けサイト](https://www.sejuku.net/blog/67735)
+function fileSave(filedata, filename, saveid) {
+    const saveA = document.querySelector(saveid);
+    const blob = new Blob([filedata]);
+    saveA.href = URL.createObjectURL(blob);
+    saveA.download = filename;
+};
 async function fileRead(openid, textboxid = "", filenameid = "", mime = "plain/text") {
     const file = document.querySelector(openid).files[0];
     const readed = await new Promise((resolve, reject) => {
