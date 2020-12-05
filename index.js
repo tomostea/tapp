@@ -22,22 +22,19 @@ document.querySelector('#gUM_do').onclick = () => {
 };
 async function fileRead(openid, textboxid = "", filenameid = "", mime = "plain/text") {
     const file = document.querySelector(openid).files[0];
-    const readed = await readFileAsync(file, mime);
-    if (textboxid) {
-        const textbox = document.querySelector(textboxid);
-        const filenameBox = document.querySelector(filenameid);
-        textbox.value = readed.result
-        filenameBox.value = file.name
-    }
-    return [readed.result, file.name]
-}
-function readFileAsync(file, mime) {
-    return new Promise((resolve, reject) => {
+    const readed = await new Promise((resolve, reject) => {
         const reader = new FileReader();
         mime == "plain/text" ? reader.readAsText(file) : reader.readAsArrayBuffer(file);
-        reader.onload = () => resolve(reader); // イベントプロパティに関数を設定すると、そのイベントが起きた際に関数が実行される
-        reader.onerror = () => reject(reader); // [【JavaScript入門】初心者でも分かるイベント処理の作り方まとめ！ | 侍エンジニア塾ブログ（Samurai Blog） - プログラミング入門者向けサイト](https://www.sejuku.net/blog/61631)
+        reader.onload = () => resolve(reader); // [【JavaScript入門】初心者でも分かるイベント処理の作り方まとめ！ | 侍エンジニア塾ブログ（Samurai Blog） - プログラミング入門者向けサイト](https://www.sejuku.net/blog/61631)
+        reader.onerror = () => reject(reader);
     })
+    if (textboxid) {
+        const filenameBox = document.querySelector(filenameid);
+        filenameBox.value = file.name;
+        const textbox = document.querySelector(textboxid);
+        textbox.value = readed.result;
+    }
+    return [readed.result, file.name];
 }
 
 // [SubtleCrypto.digest() - Web API | MDN](https://developer.mozilla.org/ja/docs/Web/API/SubtleCrypto/digest)
