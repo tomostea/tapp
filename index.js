@@ -339,7 +339,8 @@ const app = new Vue({
             this.calc_result = eval(this.calc_raw);
         },
         btfy_raw: function () {
-            this.btfy_result = js_beautify(this.btfy_raw);
+            const beautify = SimplyBeautiful();
+            this.btfy_result = beautify.js(this.btfy_raw);
         }
     }
 })
