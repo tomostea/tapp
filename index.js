@@ -216,6 +216,10 @@ const app = new Vue({
     <textarea v-model="btfy_result"></textarea>
     </div>
 
+    <div>
+    LA {{la}}
+    </div>
+
     </div>
     `,
     data: {
@@ -243,6 +247,7 @@ const app = new Vue({
         jrnl_result: '',
         btfy_raw: '',
         btfy_result: '',
+        la: ''
     },
     methods: {
         url_method: function () {
@@ -337,5 +342,10 @@ const app = new Vue({
             const beautify = SimplyBeautiful();
             this.btfy_result = beautify.js(this.btfy_raw);
         }
+    },
+    mounted() {
+        // [JavaScript - AU,SG,THそれぞれの現地時間の取得｜teratail](https://teratail.com/questions/203622)
+        const date = new Date()
+        this.la = date.toLocaleString('ja-JP', { timeZone: 'America/Los_Angeles' })
     }
 })
