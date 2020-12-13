@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>TApp 1.1.2</title>
+    <title>TApp 1.2</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png">
     <style>
@@ -29,6 +29,9 @@
     <button id="gUM_rec">REC</button>
     <button id="gUM_stop">Stop</button>
     <div id="gUM_res"></div>
+
+    <input type="file" id="html_source" />
+    <button onclick="toDataUrlScheme('#html_source')">encode</button>
 
     <div id="app"></div>
 </body>

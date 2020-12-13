@@ -115,6 +115,17 @@ async function doAes(keyid, inputid, dlid, enc_mode = true) {
     fileSave(processed, dl_.download, dlid)
 };
 
+async function toDataUrlScheme (openid) {
+    const rawHtml = await fileRead(openid)
+    const encoded = btoa(rawHtml[0])
+    const dataUrlScheme = "data:text/html;utf-8;base64," + encoded
+    navigator.clipboard.writeText(dataUrlScheme)
+    .then(() => {
+        console.log(rawHtml,encoded,dataUrlScheme)
+        alert("copied!")
+    })
+}
+
 // [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
 // [ブラウザで覚えるES Modules入門 - JavaScriptでモジュールを使う時代 - ICS MEDIA](https://ics.media/entry/16511/)
 Vue.component(VueCountdown.name, VueCountdown);
@@ -136,14 +147,6 @@ const app = new Vue({
     <button v-on:click="url_method">Do</button>
     <input type="checkbox" v-model="url_mode" value="true">encode
     <span>{{url_result}}</span>
-    </div>
-
-    <div>
-    base
-    <input v-model="base_raw">
-    <button v-on:click="base_method">Do</button>
-    <input type="checkbox" v-model="base_mode" value="true">encode
-    <span>{{base_result}}</span>
     </div>
 
     <div>
@@ -222,9 +225,6 @@ const app = new Vue({
         url_raw: "",
         url_result: "",
         url_mode: [],
-        base_raw: "",
-        base_result: "",
-        base_mode: [],
         pass_result: '',
         pass_length: 12,
         pass_mode: ["lower", "upper", "number"],
@@ -248,10 +248,6 @@ const app = new Vue({
     methods: {
         url_method: function () {
             this.url_result = this.url_mode.length == 0 ? decodeURI(this.url_raw) : encodeURI(this.url_raw)
-        },
-        // [JavaScriptでBase64エンコード・デコード（UTF-8も） - Qiita](https://qiita.com/i15fujimura1s/items/6fa5d16b1e53f04f3b06)
-        base_method: function () {
-            this.base_result = this.base_mode.length == 0 ? decodeURIComponent(atob(this.base_raw)) : btoa(encodeURIComponent(this.base_raw))
         },
         // [](https://luck2515.com/20200312/createPassword)
         pass_method: function () {
