@@ -151,10 +151,10 @@ const app = new Vue({
     <div>
     pass
     <input type="number" v-model.number="pass_length">
-    <input type="checkbox" v-model="pass_mode" value="lower">Lowercase
-    <input type="checkbox" v-model="pass_mode" value="upper">Uppercase
-    <input type="checkbox" v-model="pass_mode" value="number">Number
-    <input type="checkbox" v-model="pass_mode" value="symbol">Symbol
+    <input type="checkbox" v-model="pass_mode" value="lower">a
+    <input type="checkbox" v-model="pass_mode" value="upper">A
+    <input type="checkbox" v-model="pass_mode" value="number">0
+    <input type="checkbox" v-model="pass_mode" value="symbol">#
     <button v-on:click="pass_method">Do</button>
     <span>{{pass_result}}</span>
     </div>
