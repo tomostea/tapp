@@ -116,14 +116,13 @@ async function doAes(keyid, inputid, dlid, enc_mode = true) {
 };
 
 // [【JavaScript】window.btoa(‘日本語’) する at softelメモ](https://www.softel.co.jp/blogs/tech/archives/4133)
-async function toDataUrlScheme(openid) {
-    const [rawHtml, filename] = await fileRead(openid)
+async function toDataUrlScheme(openId, resultId) {
+    const [rawHtml, filename] = await fileRead(openId)
     const binary = unescape(encodeURIComponent(rawHtml))
     const encoded = btoa(binary)
     const dataUrlScheme = "data:text/html;utf-8;base64," + encoded
-    const element = document.querySelector("#tDUS_result")
-    element.href = dataUrlScheme
-    alert("encoded!")
+    const textarea = document.querySelector(resultId)
+    textarea.value = dataUrlScheme
 }
 
 // [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
