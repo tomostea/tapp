@@ -346,7 +346,7 @@ const app = new Vue({
             this.od_result = `avg: ${avg}\nresult: ${result}\nresult2: ${result2}`;
         },
         calc_raw: function () {
-            this.calc_result = eval(this.calc_raw);
+            this.calc_result = calc(this.calc_raw);
         },
         btfy_raw: function () {
             const beautify = SimplyBeautiful();
