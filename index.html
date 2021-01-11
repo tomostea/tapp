@@ -16,7 +16,8 @@
 <body>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@chenfengyuan/vue-countdown@1.1.5/dist/vue-countdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@chenfengyuan/vue-countdown@latest/dist/vue-countdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/exif-reader.min.js"></script>
     <script src="index.js" defer></script>
 
     <input type="file" id="aes_source" />
@@ -32,6 +33,8 @@
 
     <input onchange="toDataUrlScheme('#tDUS_source','#tDUS_result')" type="file" id="tDUS_source" />
     <textarea id="tDUS_result"></textarea>
+
+    <input onchange="readExif('#exif_source')" type="file" id="exif_source" />
 
     <div id="app"></div>
 </body>

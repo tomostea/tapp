@@ -125,6 +125,16 @@ async function toDataUrlScheme(openId, resultId) {
     textarea.value = dataUrlScheme
 }
 
+// [mattiasw/ExifReader: A JavaScript Exif info parser.](https://github.com/mattiasw/ExifReader/)
+function readExif(openId) {
+    fileRead(openId, "", "", "binary")
+        .then(r => {
+            const tags = ExifReader.load(r[0]);
+            delete tags['MakerNote'];
+            alert(JSON.stringify(tags, null, 2))
+        })
+}
+
 // [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
 // [ブラウザで覚えるES Modules入門 - JavaScriptでモジュールを使う時代 - ICS MEDIA](https://ics.media/entry/16511/)
 Vue.component(VueCountdown.name, VueCountdown);
