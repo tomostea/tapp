@@ -227,6 +227,13 @@ const app = new Vue({
     </div>
 
     <div>
+    totp
+    <input v-model="totp_raw">
+    <button v-on:click="totp_method">Do</button>
+    <span>{{totp_result}}</span>
+    </div>
+
+    <div>
     LA {{la}}
     </div>
 
@@ -257,6 +264,8 @@ const app = new Vue({
         jrnl_result: '',
         btfy_raw: '',
         btfy_result: '',
+        totp_raw: '',
+        totp_result: '',
         la: ''
     },
     methods: {
@@ -312,6 +321,23 @@ const app = new Vue({
             this.jrnl_result = JSON.stringify(result, null, 0)
             const art = this.jrnl_raw
             if (art) { window.open(`https://query.wikidata.org/#PREFIX%20rdfs:%20<http://www.w3.org/2000/01/rdf-schema#>select%20distinct%20*%20where%20{%20?s%20rdfs:label%20?o%20filter%20regex%20(?o,%20"${art}").}limit%201`); }
+        },
+        // [totp.js · GitHub](https://gist.github.com/matobaa/fd519dbcfff2c30cb56597194d1a4541)
+        totp_method: function () {
+            var b32 = s => [0, 8, 16, 24, 32, 40, 48, 56]
+                .map(i => [0, 1, 2, 3, 4, 5, 6, 7]
+                    .map(j => s.charCodeAt(i + j)).map(c => c < 65 ? c - 24 : c - 65))
+                .map(a => [(a[0] << 3) + (a[1] >> 2),
+                (a[1] << 6) + (a[2] << 1) + (a[3] >> 4),
+                (a[3] << 4) + (a[4] >> 1),
+                (a[4] << 7) + (a[5] << 2) + (a[6] >> 3),
+                (a[6] << 5) + (a[7] >> 0),
+                ]).flat(),
+                trunc = dv => dv.getUint32(dv.getInt8(19) & 0x0f) & 0x7fffffff,
+                c = Math.floor(Date.now() / 1000 / 30);
+            crypto.subtle.importKey('raw', new Int8Array(b32(this.totp_raw)), { name: 'HMAC', hash: { name: 'SHA-1' } }, true, ['sign'])
+                .then(k => crypto.subtle.sign('HMAC', k, new Int8Array([0, 0, 0, 0, c >> 24, c >> 16, c >> 8, c])))
+                .then(h => this.totp_result = ('0' + trunc(new DataView(h))).slice(-6))
         }
     },
     watch: {
