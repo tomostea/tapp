@@ -15,14 +15,14 @@
 
 <body>
     <input type="file" id="aes_source" />
-    <input type="password" id="aes_key" placeholder="aes_key" />
-    <button onclick="doAes('#aes_key','#aes_source','#aes_result')">encrypt</button>
-    <button onclick="doAes('#aes_key','#aes_source','#aes_result',false)">decrypt</button>
+    <input type="password" id="aes_key" placeholder="aes_key" style="width:45%;" />
+    <button onclick="doAes('#aes_key','#aes_source','#aes_result')">enc</button>
+    <button onclick="doAes('#aes_key','#aes_source','#aes_result',false)">dec</button>
     <a id="aes_result">DL</a>
     <br />
     <button id="gUM_do">Do</button>
-    <button id="gUM_rec">REC</button>
-    <button id="gUM_stop">Stop</button>
+    <button id="gUM_rec">🔴</button>
+    <button id="gUM_stop">■</button>
     <div id="gUM_res"></div>
     <br />
     <input onchange="toDataUrlScheme('#tDUS_source','#tDUS_result')" type="file" id="tDUS_source" />
@@ -30,51 +30,51 @@
     <br />
     <input onchange="readExif('#exif_source')" type="file" id="exif_source" />
     <br />
-    <input placeholder="sha" id="sha_raw" />
-    <input id="sha_result"/>
+    <input placeholder="sha" id="sha_raw" style="width:45%;" />
+    <input id="sha_result" style="width:45%;" />
     <br />
-    <input placeholder="url" id="url_raw" />
+    <input placeholder="url" id="url_raw" style="width:30%;" />
     <button id="url_button">Do</button>
-    <input type="checkbox" id="url_mode" value="true" />encode
-    <input id="url_result"/>
+    <input type="checkbox" id="url_mode" value="true" />enc
+    <input id="url_result" style="width:30%;" />
     <br />
-    <input type="number" id="pass_length" placeholder="pass" />
+    <input type="number" id="pass_length" placeholder="pass" value="12" style="width:10%;" />
     <input type="checkbox" name="pass_mode" value="lower" />a
     <input type="checkbox" name="pass_mode" value="upper" />A
     <input type="checkbox" name="pass_mode" value="number" />0
     <input type="checkbox" name="pass_mode" value="symbol" />#
     <button id="pass_button">Do</button>
-    <input id="pass_result" />
+    <input id="pass_result" style="width:35%;" />
     <br />
-    <input id="fin_json_raw" placeholder="fin_json" />
-    <input id="fin_json_result" />
+    <input id="fin_json_raw" placeholder="fin_json" style="width:45%;" />
+    <input id="fin_json_result" style="width:45%;" />
     <br />
-    <input id="fin_space_raw" placeholder="fin_space" />
-    <input id="fin_space_result" />
+    <input id="fin_space_raw" placeholder="fin_space" style="width:45%;" />
+    <input id="fin_space_result" style="width:45%;" />
     <br />
-    <input id="od_raw" placeholder="od">
-    <input id="od_result" />
+    <input id="od_raw" placeholder="od" style="width:45%;" />
+    <input id="od_result" style="width:45%;" />
     <br />
-    <input id="calc_raw" placeholder="calc">
-    <input id="calc_result" />
+    <input id="calc_raw" placeholder="calc" style="width:45%;" />
+    <input id="calc_result" style="width:45%;" />
     <br />
-    <input id="rss_raw" placeholder="rss">
+    <input id="rss_raw" placeholder="rss" style="width:35%;" />
     <button id="rss_button">Do</button>
-    <input id="rss_result" />
+    <input id="rss_result" style="width:45%;" />
     <br />
-    <input id="jrnl_raw" placeholder="jrnl">
+    <input id="jrnl_raw" placeholder="jrnl" style="width:35%;" />
     <button id="jrnl_button">Do</button>
-    <input id="jrnl_result" />
+    <input id="jrnl_result" style="width:45%;" />
     <br />
     <textarea id="btfy_raw" placeholder="btfy"></textarea>
     <textarea id="btfy_result"></textarea>
     <br />
-    <input id="totp_raw" placeholder="totp">
+    <input id="totp_raw" placeholder="totp" style="width:45%;" />
     <button id="totp_button">Do</button>
-    <input id="totp_result" />
+    <input id="totp_result" style="width:35%;" />
     <br />
     <button id="la_button">Do</button>
-    <input id="la_result" />
+    <input id="la_result" style="width:45%;" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js" integrity="sha512-JnZPWAckMDks0CCIeGznqEo7ifmYK7VowHq/NVFlSXGkwxv4OBCJFy7nouOtJZmVldHo7FQLIdeWTI55yyZc4Q==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/exif-reader.min.js"></script>
