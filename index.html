@@ -15,7 +15,7 @@
 
 <body>
     <input type="file" id="aes_source" />
-    <input type="password" id="aes_key" placeholder="aes_key" style="width:45%;" />
+    <input type="password" id="aes_key" placeholder="aes_key" style="width:40%;" />
     <button onclick="doAes('#aes_key','#aes_source','#aes_result')">enc</button>
     <button onclick="doAes('#aes_key','#aes_source','#aes_result',false)">dec</button>
     <a id="aes_result">DL</a>
@@ -30,13 +30,13 @@
     <br />
     <input onchange="readExif('#exif_source')" type="file" id="exif_source" />
     <br />
-    <input placeholder="sha" id="sha_raw" style="width:45%;" />
-    <input id="sha_result" style="width:45%;" />
+    <input placeholder="sha" id="sha_raw" style="width:40%;" />
+    <input id="sha_result" style="width:40%;" />
     <br />
-    <input placeholder="url" id="url_raw" style="width:30%;" />
+    <input placeholder="url" id="url_raw" style="width:25%;" />
     <button id="url_button">Do</button>
     <input type="checkbox" id="url_mode" value="true" />enc
-    <input id="url_result" style="width:30%;" />
+    <input id="url_result" style="width:25%;" />
     <br />
     <input type="number" id="pass_length" placeholder="pass" value="12" style="width:10%;" />
     <input type="checkbox" name="pass_mode" value="lower" />a
@@ -44,37 +44,37 @@
     <input type="checkbox" name="pass_mode" value="number" />0
     <input type="checkbox" name="pass_mode" value="symbol" />#
     <button id="pass_button">Do</button>
-    <input id="pass_result" style="width:35%;" />
+    <input id="pass_result" style="width:30%;" />
     <br />
-    <input id="fin_json_raw" placeholder="fin_json" style="width:45%;" />
-    <input id="fin_json_result" style="width:45%;" />
+    <input id="fin_json_raw" placeholder="fin_json" style="width:40%;" />
+    <input id="fin_json_result" style="width:40%;" />
     <br />
-    <input id="fin_space_raw" placeholder="fin_space" style="width:45%;" />
-    <input id="fin_space_result" style="width:45%;" />
+    <input id="fin_space_raw" placeholder="fin_space" style="width:40%;" />
+    <input id="fin_space_result" style="width:40%;" />
     <br />
-    <input id="od_raw" placeholder="od" style="width:45%;" />
-    <input id="od_result" style="width:45%;" />
+    <input id="od_raw" placeholder="od" style="width:40%;" />
+    <input id="od_result" style="width:40%;" />
     <br />
-    <input id="calc_raw" placeholder="calc" style="width:45%;" />
-    <input id="calc_result" style="width:45%;" />
+    <input id="calc_raw" placeholder="calc" style="width:40%;" />
+    <input id="calc_result" style="width:40%;" />
     <br />
-    <input id="rss_raw" placeholder="rss" style="width:35%;" />
+    <input id="rss_raw" placeholder="rss" style="width:30%;" />
     <button id="rss_button">Do</button>
-    <input id="rss_result" style="width:45%;" />
+    <input id="rss_result" style="width:40%;" />
     <br />
-    <input id="jrnl_raw" placeholder="jrnl" style="width:35%;" />
+    <input id="jrnl_raw" placeholder="jrnl" style="width:30%;" />
     <button id="jrnl_button">Do</button>
-    <input id="jrnl_result" style="width:45%;" />
+    <input id="jrnl_result" style="width:40%;" />
     <br />
     <textarea id="btfy_raw" placeholder="btfy"></textarea>
     <textarea id="btfy_result"></textarea>
     <br />
-    <input id="totp_raw" placeholder="totp" style="width:45%;" />
+    <input id="totp_raw" placeholder="totp" style="width:40%;" />
     <button id="totp_button">Do</button>
-    <input id="totp_result" style="width:35%;" />
+    <input id="totp_result" style="width:30%;" />
     <br />
     <button id="la_button">Do</button>
-    <input id="la_result" style="width:45%;" />
+    <input id="la_result" style="width:40%;" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js" integrity="sha512-JnZPWAckMDks0CCIeGznqEo7ifmYK7VowHq/NVFlSXGkwxv4OBCJFy7nouOtJZmVldHo7FQLIdeWTI55yyZc4Q==" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/exif-reader.min.js"></script>
