@@ -1,6 +1,6 @@
 # TApp
 
-PWA app for file encryption, MediaRecorder and more... partially made by Vue.js
+PWA app for file encryption, MediaRecorder and more... with RxJS
 
 [TApp](https://tomostea.github.io/TApp)
 
@@ -11,7 +11,7 @@ TAppでは、Web APIを使った様々な技術的なデモを提供していま
 
 ## Technology
 
-技術としては、上記のAPIを使用していると共に、一部の機能は[Vue.js](https://vuejs.org/)で実装しています。
+技術としては、上記のAPIを使用していると共に、一部の機能は[RxJS](https://rxjs-dev.firebaseapp.com/)で実装しています。
 
 ## Note
 
