@@ -14,30 +14,73 @@
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@chenfengyuan/vue-countdown@latest/dist/vue-countdown.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/exif-reader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@motardo/calc@latest/calc.min.js"></script>
-    <script src="index.js" defer></script>
-
     <input type="file" id="aes_source" />
-    <input type="password" id="aes_key" />
+    <input type="password" id="aes_key" placeholder="aes_key" />
     <button onclick="doAes('#aes_key','#aes_source','#aes_result')">encrypt</button>
     <button onclick="doAes('#aes_key','#aes_source','#aes_result',false)">decrypt</button>
     <a id="aes_result">DL</a>
-
+    <br />
     <button id="gUM_do">Do</button>
     <button id="gUM_rec">REC</button>
     <button id="gUM_stop">Stop</button>
     <div id="gUM_res"></div>
-
+    <br />
     <input onchange="toDataUrlScheme('#tDUS_source','#tDUS_result')" type="file" id="tDUS_source" />
-    <textarea id="tDUS_result"></textarea>
-
+    <textarea id="tDUS_result" placeholder="tDUS_result"></textarea>
+    <br />
     <input onchange="readExif('#exif_source')" type="file" id="exif_source" />
+    <br />
+    <input placeholder="sha" id="sha_raw" />
+    <input id="sha_result"/>
+    <br />
+    <input placeholder="url" id="url_raw" />
+    <button id="url_button">Do</button>
+    <input type="checkbox" id="url_mode" value="true" />encode
+    <input id="url_result"/>
+    <br />
+    <input type="number" id="pass_length" placeholder="pass" />
+    <input type="checkbox" name="pass_mode" value="lower" />a
+    <input type="checkbox" name="pass_mode" value="upper" />A
+    <input type="checkbox" name="pass_mode" value="number" />0
+    <input type="checkbox" name="pass_mode" value="symbol" />#
+    <button id="pass_button">Do</button>
+    <input id="pass_result" />
+    <br />
+    <input id="fin_json_raw" placeholder="fin_json" />
+    <input id="fin_json_result" />
+    <br />
+    <input id="fin_space_raw" placeholder="fin_space" />
+    <input id="fin_space_result" />
+    <br />
+    <input id="od_raw" placeholder="od">
+    <input id="od_result" />
+    <br />
+    <input id="calc_raw" placeholder="calc">
+    <input id="calc_result" />
+    <br />
+    <input id="rss_raw" placeholder="rss">
+    <button id="rss_button">Do</button>
+    <input id="rss_result" />
+    <br />
+    <input id="jrnl_raw" placeholder="jrnl">
+    <button id="jrnl_button">Do</button>
+    <input id="jrnl_result" />
+    <br />
+    <textarea id="btfy_raw" placeholder="btfy"></textarea>
+    <textarea id="btfy_result"></textarea>
+    <br />
+    <input id="totp_raw" placeholder="totp">
+    <button id="totp_button">Do</button>
+    <input id="totp_result" />
+    <br />
+    <button id="la_button">Do</button>
+    <input id="la_result" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js" integrity="sha512-JnZPWAckMDks0CCIeGznqEo7ifmYK7VowHq/NVFlSXGkwxv4OBCJFy7nouOtJZmVldHo7FQLIdeWTI55yyZc4Q==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/exif-reader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@motardo/calc@latest/calc.min.js"></script>
+    <script src="index.js"></script>
 
-    <div id="app"></div>
 </body>
 
 </html>

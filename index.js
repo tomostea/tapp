@@ -135,253 +135,171 @@ function readExif(openId) {
         })
 }
 
-// [Vue Component の仕様 · vue-loader](https://vue-loader-v14.vuejs.org/ja/start/spec.html)
-// [ブラウザで覚えるES Modules入門 - JavaScriptでモジュールを使う時代 - ICS MEDIA](https://ics.media/entry/16511/)
-Vue.component(VueCountdown.name, VueCountdown);
-const app = new Vue({
-    el: '#app',
-    // [Vue.jsでinput type="number"としてもvalueは常に文字列を返すので注意！number装飾子を追加しよう - Qiita](https://qiita.com/kopkop/items/f0ad39ca96731b938796)
-    template: `
-    <div>
+// [RxJS入門 | 第1回 RxJSとは | CodeGrid](https://www.codegrid.net/articles/2017-rxjs-1/)
 
-    <div>
-    sha
-    <input v-model="sha_raw">
-    <span>{{sha_result}}</span>
-    </div>
-
-    <div>
-    url
-    <input v-model="url_raw">
-    <button v-on:click="url_method">Do</button>
-    <input type="checkbox" v-model="url_mode" value="true">encode
-    <span>{{url_result}}</span>
-    </div>
-
-    <div>
-    pass
-    <input type="number" v-model.number="pass_length">
-    <input type="checkbox" v-model="pass_mode" value="lower">a
-    <input type="checkbox" v-model="pass_mode" value="upper">A
-    <input type="checkbox" v-model="pass_mode" value="number">0
-    <input type="checkbox" v-model="pass_mode" value="symbol">#
-    <button v-on:click="pass_method">Do</button>
-    <span>{{pass_result}}</span>
-    </div>
-
-    <div>
-    timer
-    <input v-model="timer_nums">
-    <button v-on:click="timer_method">Do</button>
-    <div v-for="c in timer_seconds" ref="time">
-        <countdown :time="c * 1000">
-            <!-- 親コンポーネント (HTML (Vueインスタンス)) がデータを受け取る時はv-slot 逆はv-bind -->
-            <template v-slot="props">{{ props.days }} d {{ props.hours }} h
-                {{ props.minutes }} m {{ props.seconds }} s</template>
-        </countdown>
-    </div>
-    </div>
-
-    <div>
-    fin_json
-    <input v-model="fin_json_raw">
-    <span>{{fin_json_result}}</span>
-    </div>
-
-    <div>
-    fin_space
-    <input v-model="fin_space_raw"></input>
-    <span>{{fin_space_result}}</span>
-    </div>
-
-    <div>
-    od
-    <input v-model="od_raw">
-    <span>{{od_result}}</span>
-    </div>
-
-    <div>
-    calc
-    <input v-model="calc_raw">
-    <span>{{calc_result}}</span>
-    </div>
-
-    <div>
-    rss
-    <input v-model="rss_raw">
-    <button v-on:click="rss_method">Do</button>
-    <span>{{rss_result}}</span>
-    </div>
-
-    <div>
-    jrnl
-    <input v-model="jrnl_raw">
-    <button v-on:click="jrnl_method">Do</button>
-    <span>{{jrnl_result}}</span>
-    </div>
-
-    <div>
-    btfy
-    <textarea v-model="btfy_raw"></textarea>
-    <textarea v-model="btfy_result"></textarea>
-    </div>
-
-    <div>
-    totp
-    <input v-model="totp_raw">
-    <button v-on:click="totp_method">Do</button>
-    <span>{{totp_result}}</span>
-    </div>
-
-    <div>
-    LA {{la}}
-    </div>
-
-    </div>
-    `,
-    data: {
-        sha_raw: '',
-        sha_result: '',
-        url_raw: "",
-        url_result: "",
-        url_mode: [],
-        pass_result: '',
-        pass_length: 12,
-        pass_mode: ["lower", "upper", "number"],
-        timer_nums: [],
-        timer_seconds: [],
-        fin_json_raw: '',
-        fin_json_result: 0,
-        fin_space_raw: '',
-        fin_space_result: 0,
-        od_raw: '',
-        od_result: '',
-        calc_raw: '',
-        calc_result: 0,
-        rss_raw: '',
-        rss_result: '',
-        jrnl_raw: '',
-        jrnl_result: '',
-        btfy_raw: '',
-        btfy_result: '',
-        totp_raw: '',
-        totp_result: '',
-        la: ''
-    },
-    methods: {
-        url_method: function () {
-            this.url_result = this.url_mode.length == 0 ? decodeURI(this.url_raw) : encodeURI(this.url_raw)
-        },
-        // [](https://luck2515.com/20200312/createPassword)
-        pass_method: function () {
-            const lowercase = "abcdefghijklmnopqrstuvwxyz"
-            const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            const numbers = "0123456789"
-            const symbols = "`˜!@#$%^&*()_+-={}[]|:;\"'<>,.?/"
-            const length = this.pass_length;
-            const useLowercase = this.pass_mode.includes("lower");
-            const useUppercase = this.pass_mode.includes("upper");
-            const useNumber = this.pass_mode.includes("number");
-            const useSymbol = this.pass_mode.includes("symbol");
-            const strList = `${useLowercase ? lowercase : ""}${useUppercase ? uppercase : ""}${useNumber ? numbers : ""}${useSymbol ? symbols : ""}`
-            const secureMathRandom = () => window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
-            let password = ""
-            for (let j = 0; j < length; j++) {
-                password += strList[Math.floor(secureMathRandom() * strList.length)]
-            }
-            this.pass_result = password
-        },
-        // <button @click="addNum">{{num}}</button>
-        timer_method: function () {
-            this.timer_seconds = this.timer_nums.split(",")
-        },
-        // [rss-detect-bookmarklet/rss.js at master · aziraphale/rss-detect-bookmarklet](https://github.com/aziraphale/rss-detect-bookmarklet/blob/master/rss.js)
-        rss_method: function () {
-            fetch("https://cors-anywhere.herokuapp.com/" + this.rss_raw)
-                .then((res) => res.text())
-                .then((htmlstr) => {
-                    const query = "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
-                    const html = new DOMParser().parseFromString(htmlstr, "text/html")
-                    const elements = html.querySelectorAll(query);
-                    // [querySelectorAllしてmapしたいとき[...すると短い - hitode909の日記](https://blog.sushi.money/entry/2017/04/19/114028)
-                    const links = Array.from(elements).map(x => x.href)
-                    this.rss_result = links.length > 0 ? links : "None"
-                }).catch(e => console.error(e))
-        },
-        jrnl_method: function () {
-            const today = new Date();
-            const date = `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${("0" + today.getDate()).slice(-2)}`;
-            const result = {
-                P577: date,
-                P793: "",
-                P4271: 0,
-                P135: "http://www.wikidata.org/entity/",
-                P1476: "",
-            };
-            this.jrnl_result = JSON.stringify(result, null, 0)
-            const art = this.jrnl_raw
-            if (art) { window.open(`https://query.wikidata.org/#PREFIX%20rdfs:%20<http://www.w3.org/2000/01/rdf-schema#>select%20distinct%20*%20where%20{%20?s%20rdfs:label%20?o%20filter%20regex%20(?o,%20"${art}").}limit%201`); }
-        },
-        // [totp.js · GitHub](https://gist.github.com/matobaa/fd519dbcfff2c30cb56597194d1a4541)
-        totp_method: function () {
-            var b32 = s => [0, 8, 16, 24, 32, 40, 48, 56]
-                .map(i => [0, 1, 2, 3, 4, 5, 6, 7]
-                    .map(j => s.charCodeAt(i + j)).map(c => c < 65 ? c - 24 : c - 65))
-                .map(a => [(a[0] << 3) + (a[1] >> 2),
-                (a[1] << 6) + (a[2] << 1) + (a[3] >> 4),
-                (a[3] << 4) + (a[4] >> 1),
-                (a[4] << 7) + (a[5] << 2) + (a[6] >> 3),
-                (a[6] << 5) + (a[7] >> 0),
-                ]).flat(),
-                trunc = dv => dv.getUint32(dv.getInt8(19) & 0x0f) & 0x7fffffff,
-                c = Math.floor(Date.now() / 1000 / 30);
-            crypto.subtle.importKey('raw', new Int8Array(b32(this.totp_raw)), { name: 'HMAC', hash: { name: 'SHA-1' } }, true, ['sign'])
-                .then(k => crypto.subtle.sign('HMAC', k, new Int8Array([0, 0, 0, 0, c >> 24, c >> 16, c >> 8, c])))
-                .then(h => this.totp_result = ('0' + trunc(new DataView(h))).slice(-6))
-        }
-    },
-    watch: {
-        // [Vue.js プロパティの変更をデータに反映する - 前人未踏の領域へ WEB・インフラ・プログラミング全般編](https://taker.hatenablog.com/entry/2020/04/07/083542)
-        // [SHA256のハッシュをJavaScriptのWeb標準のライブラリだけで計算する - nwtgck / Ryo Ota](https://scrapbox.io/nwtgck/SHA256のハッシュをJavaScriptのWeb標準のライブラリだけで計算する)
-        sha_raw: async function () {
-            const buff = new Uint8Array([].map.call(this.sha_raw, (c) => c.charCodeAt(0))).buffer;
-            const digest = await crypto.subtle.digest('SHA-256', buff);
-            this.sha_result = [].map.call(new Uint8Array(digest), x => ('00' + x.toString(16)).slice(-2)).join('');
-        },
-        fin_json_raw: function () {
-            const json = JSON.parse(this.fin_json_raw);
-            const values = Object.values(json);
-            const result = values.reduce((sum, n) => sum += Number(n));
-            this.fin_json_result = result
-        },
-        fin_space_raw: function () {
-            const fin_array = this.fin_space_raw.split(" ")
-            const result = fin_array.reduce((sum, n) => sum += Number(n), 0);
-            this.fin_space_result = result
-        },
-        od_raw: function () {
-            const amount = 10000;
-            const target = 0.1;
-            const dilution = 50;
-            const odraw = this.od_raw.split(",");
-            const ods = odraw.map(x => parseFloat(x));
-            const sum = ods.reduce((a, x) => a + x);
-            const avg = sum / ods.length;
-            const result = amount * (target / (dilution * avg));
-            const result2 = (400 * (0.300 / avg)) / 2;
-            this.od_result = `avg: ${avg}\nresult: ${result}\nresult2: ${result2}`;
-        },
-        calc_raw: function () {
-            this.calc_result = calc(this.calc_raw);
-        },
-        btfy_raw: function () {
-            const beautify = SimplyBeautiful();
-            this.btfy_result = beautify.js(this.btfy_raw);
-        }
-    },
-    mounted() {
-        // [JavaScript - AU,SG,THそれぞれの現地時間の取得｜teratail](https://teratail.com/questions/203622)
-        const date = new Date()
-        this.la = date.toLocaleString('ja-JP', { timeZone: 'America/Los_Angeles' })
-    }
+// [Vue.js プロパティの変更をデータに反映する - 前人未踏の領域へ WEB・インフラ・プログラミング全般編](https://taker.hatenablog.com/entry/2020/04/07/083542)
+// [SHA256のハッシュをJavaScriptのWeb標準のライブラリだけで計算する - nwtgck / Ryo Ota](https://scrapbox.io/nwtgck/SHA256のハッシュをJavaScriptのWeb標準のライブラリだけで計算する)
+const sha_rawInput$ = rxjs.fromEvent(document.querySelector("#sha_raw"), 'input');
+sha_rawInput$.subscribe(e => {
+    const input = document.querySelector("#sha_raw").value;
+    const result = document.querySelector("#sha_result");
+    const buff = new Uint8Array([].map.call(input, (c) => c.charCodeAt(0))).buffer;
+    crypto.subtle.digest('SHA-256', buff).then((d) => {
+        result.value = [].map.call(new Uint8Array(d), x => ('00' + x.toString(16)).slice(-2)).join('')
+    })
+        .catch((e) => console.error(e))
 })
+
+const url_rawClick$ = rxjs.fromEvent(document.querySelector("#url_button"), 'click');
+url_rawClick$.subscribe(e => {
+    const input = document.querySelector("#url_raw").value;
+    const result = document.querySelector("#url_result");
+    if (!document.querySelector("#url_mode").checked) {
+        result.value = decodeURI(input);
+    } else {
+        result.value = encodeURI(input);
+    };
+});
+
+// [](https://luck2515.com/20200312/createPassword)
+const pass_rawClick$ = rxjs.fromEvent(document.querySelector("#pass_button"), 'click');
+pass_rawClick$.subscribe(e => {
+    const lowercase = "abcdefghijklmnopqrstuvwxyz"
+    const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    const numbers = "0123456789"
+    const symbols = "`˜!@#$%^&*()_+-={}[]|:;\"'<>,.?/"
+    const length = Number(document.querySelector("#pass_length").value);
+    const result = document.querySelector("#pass_result");
+    const pass_mode = []
+    document.querySelectorAll('input[name="pass_mode"]').forEach(e => {
+        if (e.checked) {
+            pass_mode.push(e.value)
+        }
+    })
+    const useLowercase = pass_mode.includes("lower");
+    const useUppercase = pass_mode.includes("upper");
+    const useNumber = pass_mode.includes("number");
+    const useSymbol = pass_mode.includes("symbol");
+    const strList = `${useLowercase ? lowercase : ""}${useUppercase ? uppercase : ""}${useNumber ? numbers : ""}${useSymbol ? symbols : ""}`
+    const secureMathRandom = () => window.crypto.getRandomValues(new Uint32Array(1))[0] / 4294967295;
+    let password = ""
+    for (let j = 0; j < length; j++) {
+        password += strList[Math.floor(secureMathRandom() * strList.length)]
+    }
+    result.value = password
+});
+
+const fin_json_rawInput$ = rxjs.fromEvent(document.querySelector("#fin_json_raw"), 'input');
+fin_json_rawInput$.subscribe(e => {
+    const input = document.querySelector("#fin_json_raw").value;
+    const result = document.querySelector("#fin_json_result");
+    const json = JSON.parse(input);
+    const values = Object.values(json);
+    const sum = values.reduce((sum, n) => sum += Number(n));
+    result.value = sum
+})
+
+const fin_space_rawInput$ = rxjs.fromEvent(document.querySelector("#fin_space_raw"), 'input');
+fin_space_rawInput$.subscribe(e => {
+    const input = document.querySelector("#fin_space_raw").value;
+    const result = document.querySelector("#fin_space_result");
+    const fin_array = input.split(" ")
+    const sum = fin_array.reduce((sum, n) => sum += Number(n), 0);
+    result.value = sum
+})
+
+const od_rawInput$ = rxjs.fromEvent(document.querySelector("#od_raw"), 'input');
+od_rawInput$.subscribe(e => {
+    const input = document.querySelector("#od_raw").value;
+    const result = document.querySelector("#od_result");
+    const amount = 10000;
+    const target = 0.1;
+    const dilution = 50;
+    const odraw = input.split(",");
+    const ods = odraw.map(x => parseFloat(x));
+    const sum = ods.reduce((a, x) => a + x);
+    const avg = sum / ods.length;
+    const result1 = amount * (target / (dilution * avg));
+    const result2 = (400 * (0.300 / avg)) / 2;
+    result.value = `avg: ${avg}\nresult: ${result1}\nresult2: ${result2}`;
+})
+
+const calc_rawInput$ = rxjs.fromEvent(document.querySelector("#calc_raw"), 'input');
+calc_rawInput$.subscribe(e => {
+    const input = document.querySelector("#calc_raw").value;
+    const result = document.querySelector("#calc_result");
+    result.value = calc(input);
+})
+
+// [rss-detect-bookmarklet/rss.js at master · aziraphale/rss-detect-bookmarklet](https://github.com/aziraphale/rss-detect-bookmarklet/blob/master/rss.js)
+const rss_rawClick$ = rxjs.fromEvent(document.querySelector("#rss_button"), 'click');
+rss_rawClick$.subscribe(e => {
+    const input = document.querySelector("#rss_raw").value;
+    const result = document.querySelector("#rss_result");
+    fetch("https://cors-anywhere.herokuapp.com/" + input)
+        .then((res) => res.text())
+        .then((htmlstr) => {
+            const query = "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
+            const html = new DOMParser().parseFromString(htmlstr, "text/html")
+            const elements = html.querySelectorAll(query);
+            // [querySelectorAllしてmapしたいとき[...すると短い - hitode909の日記](https://blog.sushi.money/entry/2017/04/19/114028)
+            const links = Array.from(elements).map(x => x.href)
+            result.value = links.length > 0 ? links : "None"
+        }).catch(e => console.error(e))
+});
+
+// [rss-detect-bookmarklet/rss.js at master · aziraphale/rss-detect-bookmarklet](https://github.com/aziraphale/rss-detect-bookmarklet/blob/master/rss.js)
+const jrnl_rawClick$ = rxjs.fromEvent(document.querySelector("#jrnl_button"), 'click');
+jrnl_rawClick$.subscribe(e => {
+    const input = document.querySelector("#jrnl_raw").value;
+    const result = document.querySelector("#jrnl_result");
+    const today = new Date();
+    const date = `${today.getFullYear()}-${("0" + (today.getMonth() + 1)).slice(-2)}-${("0" + today.getDate()).slice(-2)}`;
+    const resultJson = {
+        P577: date,
+        P793: "",
+        P4271: 0,
+        P135: "http://www.wikidata.org/entity/",
+        P1476: "",
+    };
+    result.value = JSON.stringify(resultJson, null, 0)
+    const art = input
+    if (art) { window.open(`https://query.wikidata.org/#PREFIX%20rdfs:%20<http://www.w3.org/2000/01/rdf-schema#>select%20distinct%20*%20where%20{%20?s%20rdfs:label%20?o%20filter%20regex%20(?o,%20"${art}").}limit%201`); }
+});
+
+const btfy_rawInput$ = rxjs.fromEvent(document.querySelector("#btfy_raw"), 'input');
+btfy_rawInput$.subscribe(e => {
+    const input = document.querySelector("#btfy_raw").value;
+    const result = document.querySelector("#btfy_result");
+    const beautify = SimplyBeautiful();
+    result.value = beautify.js(input);
+})
+
+// [totp.js · GitHub](https://gist.github.com/matobaa/fd519dbcfff2c30cb56597194d1a4541)
+const totp_rawClick$ = rxjs.fromEvent(document.querySelector("#totp_button"), 'click');
+totp_rawClick$.subscribe(e => {
+    const input = document.querySelector("#totp_raw").value;
+    const result = document.querySelector("#totp_result");
+    var b32 = s => [0, 8, 16, 24, 32, 40, 48, 56]
+        .map(i => [0, 1, 2, 3, 4, 5, 6, 7]
+            .map(j => s.charCodeAt(i + j)).map(c => c < 65 ? c - 24 : c - 65))
+        .map(a => [(a[0] << 3) + (a[1] >> 2),
+        (a[1] << 6) + (a[2] << 1) + (a[3] >> 4),
+        (a[3] << 4) + (a[4] >> 1),
+        (a[4] << 7) + (a[5] << 2) + (a[6] >> 3),
+        (a[6] << 5) + (a[7] >> 0),
+        ]).flat(),
+        trunc = dv => dv.getUint32(dv.getInt8(19) & 0x0f) & 0x7fffffff,
+        c = Math.floor(Date.now() / 1000 / 30);
+    crypto.subtle.importKey('raw', new Int8Array(b32(input)), { name: 'HMAC', hash: { name: 'SHA-1' } }, true, ['sign'])
+        .then(k => crypto.subtle.sign('HMAC', k, new Int8Array([0, 0, 0, 0, c >> 24, c >> 16, c >> 8, c])))
+        .then(h => result.value = ('0' + trunc(new DataView(h))).slice(-6))
+});
+
+// [JavaScript - AU,SG,THそれぞれの現地時間の取得｜teratail](https://teratail.com/questions/203622)
+const la_rawClick$ = rxjs.fromEvent(document.querySelector("#la_button"), 'click');
+la_rawClick$.subscribe(e => {
+    const result = document.querySelector("#la_result");
+    const date = new Date()
+    result.value = date.toLocaleString('ja-JP', { timeZone: 'America/Los_Angeles' })
+});
