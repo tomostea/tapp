@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>TApp 1.3</title>
+    <title>TApp 1.4</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png">
     <style>
@@ -75,7 +75,12 @@
     <br />
     <button id="la_button">Do</button>
     <input id="la_result" style="width:40%;" />
+    <br />
+    <input id="ocr_raw" type="file" accept="image/*" />
+    <button id="ocr_button">Do</button>
+    <input id="ocr_result"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.6.3/rxjs.umd.min.js" integrity="sha512-JnZPWAckMDks0CCIeGznqEo7ifmYK7VowHq/NVFlSXGkwxv4OBCJFy7nouOtJZmVldHo7FQLIdeWTI55yyZc4Q==" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ocrad.js@latest/ocrad.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/exif-reader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@motardo/calc@latest/calc.min.js"></script>
