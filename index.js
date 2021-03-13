@@ -283,8 +283,14 @@ const rss_rawClick$ = rxjs.fromEvent(
 rss_rawClick$.subscribe((e) => {
   const input = document.querySelector("#rss_raw").value;
   const result = document.querySelector("#rss_result");
-  fetch("https://cors-anywhere.herokuapp.com/" + input)
-    .then((res) => res.text())
+  fetch("https://script.google.com/macros/s/AKfycbyidun34eo8cgf5mIskkgjVbC2pmgqSNldbRK7MEwkX0sWCuUxf/exec",
+  {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: JSON.stringify({ urls: [input] }),
+    redirect: "follow",
+  })
+    .then(res => res.json())
     .then((htmlstr) => {
       const query =
         "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
