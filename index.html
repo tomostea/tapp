@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>TApp 1.4.2</title>
+    <title>TApp 1.5</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="robots" content="noindex">
     <link rel="apple-touch-icon" sizes="256x256" href="apple-touch-icon.png">
@@ -75,16 +75,21 @@
     <input id="totp_result" style="width:30%;" />
     <br />
     <button id="la_button">Do</button>
-    <input id="la_result" style="width:40%;" />
+    <input id="la_result" placeholder="la" style="width:40%;" />
     <br />
     <input id="ocr_raw" type="file" accept="image/*" />
     <button id="ocr_button">Do</button>
-    <input id="ocr_result"/>
+    <input id="ocr_result" placeholder="ocr"/>
+    <br />
+    <input id="potrace_raw" type="file" accept="image/*" />
+    <button id="potrace_button">Do</button>
+    <input id="potrace_result" placeholder="potrace"/>
     <script src="https://cdn.jsdelivr.net/npm/rxjs@latest/bundles/rxjs.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/ocrad.js@latest/ocrad.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simply-beautiful@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/exifreader@latest/dist/exif-reader.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@motardo/calc@latest/web/calc-global.js"></script>
+    <script src="http://kilobtye.github.io/potrace/potrace.js"></script>
     <script src="index.js"></script>
 
 </body>

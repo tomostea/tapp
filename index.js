@@ -283,14 +283,16 @@ const rss_rawClick$ = rxjs.fromEvent(
 rss_rawClick$.subscribe((e) => {
   const input = document.querySelector("#rss_raw").value;
   const result = document.querySelector("#rss_result");
-  fetch("https://script.google.com/macros/s/AKfycbyidun34eo8cgf5mIskkgjVbC2pmgqSNldbRK7MEwkX0sWCuUxf/exec",
-  {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: JSON.stringify({ urls: [input] }),
-    redirect: "follow",
-  })
-    .then(res => res.json())
+  fetch(
+    "https://script.google.com/macros/s/AKfycbyidun34eo8cgf5mIskkgjVbC2pmgqSNldbRK7MEwkX0sWCuUxf/exec",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: JSON.stringify({ urls: [input] }),
+      redirect: "follow",
+    }
+  )
+    .then((res) => res.json())
     .then((htmlstr) => {
       const query =
         "[href$='.atom'], [href*='.atom?'], [href$='.rss'], [href*='.rss?'], [href*='/rss.'], [href*='/feed.'], [href*='/atom.'], [href*='//feeds.feedburner.com/'], [href*='/feed/'], [type='application/atom+xml'], [type='application/rss+xml']";
@@ -385,6 +387,15 @@ totp_rawClick$.subscribe((e) => {
     .then((h) => (result.value = ("0" + trunc(new DataView(h))).slice(-6)));
 });
 
+const la_Click$ = rxjs.fromEvent(document.querySelector("#la_button"), "click");
+la_Click$.subscribe((e) => {
+  const result = document.querySelector("#la_result");
+  const date = new Date();
+  result.value = date.toLocaleString("ja-JP", {
+    timeZone: "America/Los_Angeles",
+  });
+});
+
 // [Ocrad.js - Optical Character Recognition in Javascript](https://antimatter15.com/ocrad.js/demo.html)
 const ocr_rawClick$ = rxjs.fromEvent(
   document.querySelector("#ocr_button"),
@@ -411,4 +422,17 @@ ocr_rawClick$.subscribe((e) => {
     };
   };
   reader.readAsDataURL(fileData);
+});
+
+// [potrace](http://kilobtye.github.io/potrace/)
+const potrace_rawClick$ = rxjs.fromEvent(
+  document.querySelector("#potrace_button"),
+  "click"
+);
+potrace_rawClick$.subscribe((e) => {
+  const input = document.querySelector("#potrace_raw");
+  const result = document.querySelector("#potrace_result");
+  const fileData = input.files[0];
+  Potrace.loadImageFromFile(fileData);
+  Potrace.process(() => (result.value = Potrace.getSVG(3)));
 });
